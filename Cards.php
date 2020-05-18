@@ -22,15 +22,8 @@ class Cards
         $this->cardList = [];
         foreach (new DirectoryIterator(self::CARDS_DIR) as $file) {
             if ($this->isCardFile($file)) {
-                $cardNumber = $file->getBasename('.' . self::CARD_EXT);
-                $cardFilename = $file->getFilename();
-                $cardFilepath = $file->getPath() . DIRECTORY_SEPARATOR . $cardFilename;
-                $lockFile = $file->getPath() . DIRECTORY_SEPARATOR . $cardNumber . '.' . self::LOCK_CARD_EXT;
-                $isCardLocked = file_exists($lockFile);
-
-                $card = new Card($cardNumber, $cardFilename, $cardFilepath, $lockFile, $isCardLocked);
-
-                $this->cardList[$cardNumber] = $card;
+                $card = new Card($file);
+                $this->cardList[$card->number] = $card;
             }
         }
         ksort($this->cardList);
