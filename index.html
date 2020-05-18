@@ -4,13 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Билеты на экзамен</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Hello!</h1>
-    <div class="card">
-        <h2 class="card__number">Билет 1</h2>
-        <input type="text" name="student[]"><br>
-        <button class="btn btn__choose">Выбрать</button>
+    <div class="wrapper">
+        <div class="container">
+             <div class="card">
+                <h2 class="card__title">Билет 1</h2>
+                <div class="card__owner">
+                    <input type="text" name="student[]">
+                    <span class="card__student">Иванов И.И.</span>
+                </div>
+                <a href="#" class="card__link">Файл с билетом</a>
+                <div class="card__buttons">
+                    <button class="btn btn__choose">Выбрать</button>
+                    <button class="btn btn__take">Взять</button>
+                    <button class="btn btn__cancel">Отмена</button>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="./main.js"></script>

@@ -1,0 +1,49 @@
+body, html {
+    margin: 0;
+    height: 100%;
+}
+
+.wrapper {
+    height: 100%;
+}
+
+.card {
+    background-color: #ccc;
+    padding: 10px;
+    margin: 10px;
+    border: 2px solid black;
+    width: 300px;
+}
+
+.card__title {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.card__owner {
+    margin-bottom: 10px;
+    visibility: hidden;
+}
+
+.card__link {
+    display: block;
+    margin-bottom: 10px;
+    visibility: hidden;
+}
+
+.card__buttons {
+    text-align: center;
+}
+
+.btn {
+    margin-right: 10px;
+}
+
+.btn__take {
+    display: none;
+}
+
+.btn__cancel {
+    display: none;
+}
