@@ -12,12 +12,16 @@ class Cards
         $this->setCardList();
     }
 
+    private function isCardFile($file)
+    {
+        return ($file->isFile() && (! $file->isDot()) && ($file->getExtension() == self::CARD_EXT));
+    }
+
     private function setCardList()
     {
         $this->cardList = [];
         foreach (new DirectoryIterator(self::CARDS_DIR) as $file) {
-            if ($file->isFile() && (! $file->isDot()) && ($file->getExtension() == self::CARD_EXT)) {
-
+            if ($this->isCardFile($file)) {
                 $cardNumber = $file->getBasename('.' . self::CARD_EXT);
                 $cardFilename = $file->getFilename();
                 $cardFilepath = $file->getPath() . DIRECTORY_SEPARATOR . $cardFilename;
