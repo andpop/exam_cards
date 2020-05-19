@@ -6,61 +6,28 @@ $(document).ready(() => {
     $('body').on('click', '.btn', handleButtonClicks);
 
     function handleButtonClicks(e) {
-        function inputStudent() {
-            cardInputStudent.css('visibility', 'visible');
-            cardInputStudent.css('display', 'block');
-            cardStudent.css('display', 'none');
-            btnChoose.css('display', 'none');
-            btnTake.css('display', 'inline-block');
-            btnCancel.css('display', 'inline-block');
-        }
-
-        function cancelInput() {
-            cardInputStudent.css('visibility', 'hidden');
-            btnChoose.css('display', 'inline-block');
-            btnTake.css('display', 'none');
-            btnCancel.css('display', 'none');
-        }
-
-        function takeCard() {
-            const number = card.attr('data-number');
-            const student = cardInputStudent.val();
-
-            sendLockedCard(number, student);
-        }
-
         const button = $(e.target);
         const card = button.closest('.card');
         const cardInputStudent = card.find('.card__input-student');
-        const cardStudent = card.find('.card__student');
-        const btnChoose = card.find('.btn__choose');
-        const btnTake = card.find('.btn__take');
-        const btnCancel = card.find('.btn__cancel');
+        const number = card.attr('data-number');
 
         if (button.hasClass('btn__choose')) {
-            inputStudent();
+            card.addClass('card_input-student');
         } else if (button.hasClass('btn__cancel')) {
-            cancelInput();
+            card.removeClass('card_input-student');
         } else if (button.hasClass('btn__take')) {
-            takeCard();
+            sendLockedCard(number, cardInputStudent.val());
         }
-
     }
 
     function buildCardsListContent(cards) {
 
         function buildCardsItem(card) {
-            // console.log(card);
-    
             const cardItem = $(`<li>${cardTemplateHTML}</li>`);
             const cardContainer = cardItem.find('.card');
             const cardTitle = cardItem.find('.card__title');
-            const cardInputStudent = cardItem.find('.card__input-student');
             const cardStudent = cardItem.find('.card__student');
             const cardLink = cardItem.find('.card__link');
-            const btnChoose = cardItem.find('.btn__choose');
-            const btnTake = cardItem.find('.btn__take');
-            const btnCancel = cardItem.find('.btn__cancel');
     
             cardTitle.text(`Билет ${card['number']}`);
             cardContainer.attr('data-number', card['number']);
@@ -68,26 +35,18 @@ $(document).ready(() => {
     
             if (card['isLocked']) {
                 cardContainer.addClass('card_locked');
-                cardInputStudent.css('visibility', 'hidden');    
-                cardStudent.css('visibility', 'visible');
                 cardLink.attr('href', card['filePath']);
-                cardLink.css('visibility', 'visible');
-                btnChoose.css('visibility', 'hidden');
-                btnTake.css('visibility', 'hidden');
-                btnCancel.css('visibility', 'hidden');
-                // btnCancel.css('display', 'none');
             }
-    
             return '<li>' + cardItem.html() + '</li>';
         }
     
-
         let cardsList = '';
 
         for (const key in cards) {
             const card = cards[key];
             cardsList += buildCardsItem(card);
         }
+
         return cardsList;
     }
 
@@ -103,17 +62,6 @@ $(document).ready(() => {
         } else {
             alert("Ошибка HTTP: " + response.status);
         }
-
-        // $.ajax({
-        //     url: 'cards-api.php',
-        //     success: (cards) => {
-        //         const cardsList = $('.cards__list');
-        //         const cardsItems = $(buildCardsListContent(cards));
-
-        //         cardsList.empty();
-        //         cardsList.append(cardsItems);
-        //     }
-        // });
     }
 
     async function sendLockedCard(number, student) {
