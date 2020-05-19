@@ -12,7 +12,7 @@ class Card
     private function getStudentForCard($lockFile)
     {
         try {
-            $student = file_get_contents($lockFile);
+            $student = @file_get_contents($lockFile);
             return $student;
         } catch (Exception $e) {
             return '';

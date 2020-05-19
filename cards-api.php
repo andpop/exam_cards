@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // file_put_contents( 'debug' . time() . '.log', var_export( $_POST, true));
     if (isset($_POST['number']) && isset($_POST['student'])) {
         
         if (!CardsController::lockCard($_POST['number'], $_POST['student'])) {

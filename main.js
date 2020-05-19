@@ -113,25 +113,21 @@ $(document).ready(() => {
     }
 
     async function sendLockedCard(number, student) {
-        const data = {
-            'number': number,
-            'student': student
+        const cardInfo = {
+            number: number, 
+            student: student
         };
 
-        let response = await fetch('cards-api.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-              },
-            body: JSON.stringify(data)
+        $.ajax({
+            type: "POST",
+            url: "cards-api.php",
+            data: cardInfo,
+            dataType: "json",
+            success: (response) => {
+                queryCardsList();
+            }
         });
-        
-        let result = await response.json();
-        alert(result.message);
-        
-        // console.log(`Студет ${student} взял билет ${number}`);
-        // queryCardsList();
-        
+
     }
 
     queryCardsList();
