@@ -1,0 +1,116 @@
+/* Цвета из Material Design, тема Teal */
+
+body, html {
+    margin: 0;
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+}
+
+.wrapper {
+    height: 100%;
+}
+
+.container {
+    padding-top: 10px;
+}
+
+.cards__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.card {
+    background-color: #80CBC4;
+    padding: 20px 10px 10px 10px;
+    margin: 20px 0;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.card_locked {
+    background-color: #E0F2F1;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.card_locked .card__input-student,
+.card_locked .card__buttons {
+    visibility: hidden;
+}
+
+.card_locked .card__student,
+.card_locked .card__link  {
+    visibility: visible;
+}
+
+
+.card_input-student .card__input-student {
+    visibility: visible;
+    display: inline-block;
+}
+
+.card_input-student .card__student,
+.card_input-student .btn__choose {
+    display: none;
+}
+
+.card_input-student .btn__take,
+.card_input-student .btn__cancel {
+    display: inline-block;
+}
+
+
+.card__title {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.card__owner {
+    margin-bottom: 10px;
+    visibility: hidden;
+}
+
+.card__input-student {
+    display: none;
+    height: 30px;
+    width: 95%;
+    padding-left: 8px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.card__link {
+    display: inline-block;
+    margin-bottom: 10px;
+    visibility: hidden;
+    color: rgba(0, 0, 0, 0.7);;
+}
+
+.btn {
+    margin-right: 10px;
+    display: inline-block;
+    width: 100px;
+    height: 50px;
+    font-size: 16px;
+    background-color: #00695C;
+    color: #FFF;
+    border-radius: 10%;
+    border-width: 0;
+}
+
+.btn__take,
+.btn__cancel {
+    display: none;
+}
+
+.btn__cancel {
+    background-color: #00897B;
+}
+
+.card-template {
+    display: none;
+}
