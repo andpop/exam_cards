@@ -12,21 +12,25 @@ body, html {
 }
 
 .cards__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
 .cards__item {
-    margin: 20px;
+    /* margin: 20px; */
 }
 
 .card {
     background-color: #ccc;
     padding: 10px;
-    margin: 10px;
-    border: 2px solid black;
+    margin: 20px 0;
+    /* border: 1px solid black; */
     width: 300px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 .card__title {

@@ -69,9 +69,10 @@ $(document).ready(() => {
                 cardStudent.css('visibility', 'visible');
                 cardLink.attr('href', card['filePath']);
                 cardLink.css('visibility', 'visible');
-                btnChoose.css('display', 'none');
-                btnTake.css('display', 'none');
-                btnCancel.css('display', 'none');
+                btnChoose.css('visibility', 'hidden');
+                btnTake.css('visibility', 'hidden');
+                btnCancel.css('visibility', 'hidden');
+                // btnCancel.css('display', 'none');
             }
     
             return '<li>' + cardItem.html() + '</li>';
