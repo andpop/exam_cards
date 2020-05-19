@@ -96,7 +96,6 @@ $(document).ready(() => {
 
             cardsList.empty();
             cardsList.append(cardsItems);
-
         } else {
             alert("Ошибка HTTP: " + response.status);
         }
@@ -113,9 +112,25 @@ $(document).ready(() => {
         // });
     }
 
-    function sendLockedCard(number, student) {
-        console.log(`Студет ${student} взял билет ${number}`);
-        queryCardsList();
+    async function sendLockedCard(number, student) {
+        const data = {
+            'number': number,
+            'student': student
+        };
+
+        let response = await fetch('cards-api.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+              },
+            body: JSON.stringify(data)
+        });
+        
+        let result = await response.json();
+        alert(result.message);
+        
+        // console.log(`Студет ${student} взял билет ${number}`);
+        // queryCardsList();
         
     }
 
