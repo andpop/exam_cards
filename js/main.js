@@ -3,6 +3,19 @@ $(document).ready(() => {
     const cardTemplate = $('#card-template');
     let cardTemplateHTML = cardTemplate.html();
 
+    let interval;
+    let isEditCardMode = false;
+
+    if (typeof interval !== "undefined") {
+        clearInterval(interval);
+    }
+
+    interval = setInterval(() => {
+        if (isEditCardMode) return;
+        queryCardsList();
+    }, 3000);
+     
+
     $('body').on('click', '.btn', handleButtonClicks);
 
     function handleButtonClicks(e) {
@@ -12,10 +25,15 @@ $(document).ready(() => {
         const number = card.attr('data-number');
 
         if (button.hasClass('btn__choose')) {
-            card.addClass('card_input-student');
+            if (!isEditCardMode) {
+                isEditCardMode = true;
+                card.addClass('card_input-student');
+            }
         } else if (button.hasClass('btn__cancel')) {
             card.removeClass('card_input-student');
+            isEditCardMode = false;
         } else if (button.hasClass('btn__take')) {
+            isEditCardMode = false;
             sendLockedCard(number, cardInputStudent.val());
         }
     }
@@ -51,6 +69,8 @@ $(document).ready(() => {
     }
 
     async function queryCardsList() {
+        // console.log('refresh page');
+        
         let response = await fetch('cards-api.php');
         if (response.ok) {
             let cards = await response.json();
