@@ -2,10 +2,11 @@
 class Card
 {
     public $number;
-    public $filePath;
+    public $downloadPath;
     public $isLocked;
     public $student;
     
+    private $filePath;
     private $lockFile;
     private $fileName;
 
@@ -24,6 +25,8 @@ class Card
         $this->number = $file->getBasename('.' . Cards::CARD_EXT);
         $this->fileName = $file->getFilename();
         $this->filePath = $file->getPath() . DIRECTORY_SEPARATOR . $this->fileName;
+        $this->downloadPath = Cards::DOWNLOAD_DIR . DIRECTORY_SEPARATOR . $this->fileName;
+
         $this->lockFile = $file->getPath() . DIRECTORY_SEPARATOR . $this->number . '.' . Cards::LOCK_CARD_EXT;
         $this->isLocked = file_exists($this->lockFile);
         $this->student = $this->getStudentForCard($this->lockFile);

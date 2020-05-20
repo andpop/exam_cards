@@ -10,10 +10,10 @@ $(document).ready(() => {
         clearInterval(interval);
     }
 
-    interval = setInterval(() => {
-        if (isEditCardMode) return;
-        queryCardsList();
-    }, 3000);
+    // interval = setInterval(() => {
+    //     if (isEditCardMode) return;
+    //     queryCardsList();
+    // }, 3000);
      
 
     $('body').on('click', '.btn', handleButtonClicks);
@@ -53,7 +53,7 @@ $(document).ready(() => {
     
             if (card['isLocked']) {
                 cardContainer.addClass('card_locked');
-                cardLink.attr('href', card['filePath']);
+                cardLink.attr('href', card['downloadPath']);
             }
             return '<li>' + cardItem.html() + '</li>';
         }
@@ -103,5 +103,4 @@ $(document).ready(() => {
     }
 
     queryCardsList();
-
 });

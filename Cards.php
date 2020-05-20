@@ -2,6 +2,7 @@
 class Cards
 {
     const CARDS_DIR = 'files';
+    const DOWNLOAD_DIR = 'download';
     const CARD_EXT = 'docx';
     const LOCK_CARD_EXT = 'lock';
 
