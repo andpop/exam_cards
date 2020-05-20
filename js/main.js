@@ -10,10 +10,10 @@ $(document).ready(() => {
         clearInterval(interval);
     }
 
-    // interval = setInterval(() => {
-    //     if (isEditCardMode) return;
-    //     queryCardsList();
-    // }, 3000);
+    interval = setInterval(() => {
+        if (isEditCardMode) return;
+        queryCardsList();
+    }, 3000);
      
 
     $('body').on('click', '.btn', handleButtonClicks);
