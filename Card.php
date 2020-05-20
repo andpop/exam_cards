@@ -1,6 +1,7 @@
 <?php
 class Card
 {
+    public $fileName;
     public $number;
     public $downloadPath;
     public $isLocked;
@@ -8,7 +9,13 @@ class Card
     
     private $filePath;
     private $lockFile;
-    private $fileName;
+
+    // Штатная getBaseName не срабатывала
+    private function getBasename($fileName)
+    {
+        $position = strripos($fileName, '.');
+        return $position ? substr($fileName, 0, $position) : $fileName;
+    }
 
     private function getStudentForCard($lockFile)
     {
@@ -22,13 +29,13 @@ class Card
 
     public function __construct($file)
     {
-        $this->number = $file->getBasename('.' . Cards::CARD_EXT);
         $this->fileName = $file->getFilename();
+        $this->number = $this->getBasename($this->fileName);
         $this->filePath = $file->getPath() . DIRECTORY_SEPARATOR . $this->fileName;
-        $this->downloadPath = Cards::DOWNLOAD_DIR . DIRECTORY_SEPARATOR . $this->fileName;
-
-        $this->lockFile = $file->getPath() . DIRECTORY_SEPARATOR . $this->number . '.' . Cards::LOCK_CARD_EXT;
+        $this->downloadPath = CardsController::DOWNLOAD_DIR . DIRECTORY_SEPARATOR . $this->fileName;
+        $this->lockFile = CardsController::LOCKED_DIR . DIRECTORY_SEPARATOR . $this->number . '.' . CardsController::LOCK_CARD_EXT;
         $this->isLocked = file_exists($this->lockFile);
+
         $this->student = $this->getStudentForCard($this->lockFile);
     }
 }

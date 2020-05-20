@@ -1,17 +1,21 @@
 <?php
 class CardsController
 {
-    private static function copyCardForDownload($number) 
+    const CARDS_DIR = 'cards';
+    const LOCKED_DIR = 'locked_cards';
+    const DOWNLOAD_DIR = 'download';
+    const LOCK_CARD_EXT = 'lock';
+
+    private static function copyCardForDownload($cardFile) 
     {
-        $cardFile = $number . '.' . Cards::CARD_EXT;
-        $sourceFile = Cards::CARDS_DIR . DIRECTORY_SEPARATOR . $cardFile;
-        $targetFile = Cards::DOWNLOAD_DIR . DIRECTORY_SEPARATOR . $cardFile;
+        $sourceFile = self::CARDS_DIR . DIRECTORY_SEPARATOR . $cardFile;
+        $targetFile = self::DOWNLOAD_DIR . DIRECTORY_SEPARATOR . $cardFile;
         copy($sourceFile, $targetFile);
     }
 
     private static function createLockFile($number, $student)
     {
-        $lockFilePath = Cards::CARDS_DIR . DIRECTORY_SEPARATOR . $number . '.' . Cards::LOCK_CARD_EXT;
+        $lockFilePath = self::LOCKED_DIR . DIRECTORY_SEPARATOR . $number . '.' . self::LOCK_CARD_EXT;
         if (!file_exists($lockFilePath)) {
             return file_put_contents($lockFilePath, $student);
         } else {
@@ -19,10 +23,10 @@ class CardsController
         }
     }
 
-    public static function lockCard($number, $student)
+    public static function lockCard($number, $file, $student)
     {
         if (CardsController::createLockFile($number, $student)) {
-            CardsController::copyCardForDownload($number);
+            CardsController::copyCardForDownload($file);
             return true;
         } else {
             return false;

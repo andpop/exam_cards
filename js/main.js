@@ -22,19 +22,25 @@ $(document).ready(() => {
         const button = $(e.target);
         const card = button.closest('.card');
         const cardInputStudent = card.find('.card__input-student');
-        const number = card.attr('data-number');
 
         if (button.hasClass('btn__choose')) {
             if (!isEditCardMode) {
                 isEditCardMode = true;
                 card.addClass('card_input-student');
             }
+
         } else if (button.hasClass('btn__cancel')) {
-            card.removeClass('card_input-student');
             isEditCardMode = false;
+            card.removeClass('card_input-student');
+
         } else if (button.hasClass('btn__take')) {
             isEditCardMode = false;
-            sendLockedCard(number, cardInputStudent.val());
+            const cardInfo = {
+                number: card.attr('data-number'),
+                file: card.attr('data-file'),
+                student: cardInputStudent.val()
+            };
+            sendLockedCard(cardInfo);
         }
     }
 
@@ -49,6 +55,7 @@ $(document).ready(() => {
     
             cardTitle.text(`Билет ${card['number']}`);
             cardContainer.attr('data-number', card['number']);
+            cardContainer.attr('data-file', card['fileName']);
             cardStudent.text(card['student']);
     
             if (card['isLocked']) {
@@ -84,18 +91,17 @@ $(document).ready(() => {
         }
     }
 
-    async function sendLockedCard(number, student) {
-        const cardInfo = {
-            number: number, 
-            student: student
-        };
-
+    function sendLockedCard(cardInfo) {
         $.ajax({
             type: "POST",
             url: "cards-api.php",
             data: cardInfo,
             dataType: "json",
             success: (response) => {
+                queryCardsList();
+            },
+            error: (jqXHR, exception) => {
+                alert(`Ошибка на сервере\n код: ${jqXHR.status} ${exception}`);
                 queryCardsList();
             }
         });

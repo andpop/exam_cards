@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // file_put_contents( 'debug' . time() . '.log', var_export( $_POST, true));
     if (isset($_POST['number']) && isset($_POST['student'])) {
         
-        if (!CardsController::lockCard($_POST['number'], $_POST['student'])) {
+        if (!CardsController::lockCard($_POST['number'],$_POST['file'], $_POST['student'])) {
             $data = array('message' => 'При бронировании билета произошла ошибка');
             // Ошибка при записи lock-файла 
         } else {
