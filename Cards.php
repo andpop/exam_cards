@@ -8,11 +8,19 @@ class Cards
         $this->setCardList();
     }
 
+    private function isCardFile($file)
+    {
+        $result = ($file->isFile() && (! $file->isDot()));
+        $result = $result && (!in_array($file->getFilename(), CardsController::EXCLUDE_CARDS));
+        
+        return $result;
+    }
+
     private function setCardList()
     {
         $this->cardList = [];
         foreach (new DirectoryIterator(CardsController::CARDS_DIR) as $file) {
-            if ($file->isFile() && (! $file->isDot())) {
+            if ($this->isCardFile($file)) {
                 $card = new Card($file);
                 $this->cardList[$card->number] = $card;
             }

@@ -5,6 +5,7 @@ class CardsController
     const LOCKED_DIR = 'locked_cards';
     const DOWNLOAD_DIR = 'download';
     const LOCK_CARD_EXT = 'lock';
+    const EXCLUDE_CARDS = ['.htaccess'];
 
     private static function copyCardForDownload($cardFile) 
     {
